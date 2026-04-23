@@ -2,6 +2,8 @@
 
 `ppt-style-html-creator` is a Codex/Claude skill for creating deployable PPT-style HTML presentation projects with optional editable PowerPoint export.
 
+It is used to generate PPT-style HTML and can convert the generated deck into editable PPTX format.
+
 The skill is designed for requests such as:
 
 - "生成一份 PPT 风格的 HTML"
@@ -124,4 +126,3 @@ The current packaged release artifact is:
 ```text
 dist/ppt-style-html-creator.skill
 ```
-
