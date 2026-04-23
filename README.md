@@ -51,7 +51,7 @@ The export script reads the embedded `deck-spec` JSON from `index.html` and gene
 
 ## Skill Workflow
 
-When triggered, the skill first asks the user to choose one intake mode:
+When triggered, the skill first asks the user to choose one input mode:
 
 - Direct prompt mode: the user provides a complete prompt, and the agent asks only for blocking gaps.
 - Interview mode: the agent asks structured questions before generating files.
