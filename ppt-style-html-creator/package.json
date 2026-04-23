@@ -1,0 +1,13 @@
+{
+  "name": "ppt-style-html-creator-skill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Skill resources for deployable PPT-style HTML projects with editable PPTX export.",
+  "scripts": {
+    "check:exporter": "node --check scripts/html_to_editable_pptx.js",
+    "export:pptx": "node scripts/html_to_editable_pptx.js assets/static-project-template/index.html assets/static-project-template/deck.pptx"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

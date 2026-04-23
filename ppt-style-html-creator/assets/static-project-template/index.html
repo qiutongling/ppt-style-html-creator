@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PPT Style HTML Deck</title>
+  <style>
+    :root {
+      --bg: #111827;
+      --paper: #f8fafc;
+      --ink: #111827;
+      --muted: #64748b;
+      --accent: #f97316;
+      --teal: #14b8a6;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.28), transparent 36rem),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.24), transparent 34rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Microsoft YaHei", sans-serif;
+    }
+
+    .deck {
+      display: grid;
+      gap: 32px;
+      padding: 32px;
+      justify-content: center;
+    }
+
+    .slide {
+      position: relative;
+      width: min(1600px, calc(100vw - 64px));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--paper);
+      border-radius: 28px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    .slide > * { position: absolute; }
+
+    .eyebrow {
+      left: 8%;
+      top: 12%;
+      color: var(--accent);
+      font-size: clamp(14px, 1.2vw, 22px);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .title {
+      left: 8%;
+      top: 20%;
+      width: 60%;
+      font-size: clamp(42px, 5vw, 86px);
+      line-height: 0.98;
+      font-weight: 900;
+      margin: 0;
+    }
+
+    .subtitle {
+      left: 8%;
+      top: 55%;
+      width: 44%;
+      color: var(--muted);
+      font-size: clamp(18px, 1.7vw, 30px);
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .orb {
+      right: 10%;
+      top: 18%;
+      width: 22%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--accent));
+      box-shadow: 0 24px 70px rgba(20, 184, 166, 0.38);
+    }
+
+    .panel {
+      left: 8%;
+      top: 18%;
+      width: 84%;
+      height: 64%;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.16);
+    }
+
+    .panel-title {
+      left: 12%;
+      top: 26%;
+      font-size: clamp(28px, 3vw, 48px);
+      font-weight: 900;
+      margin: 0;
+    }
+
+    .points {
+      left: 12%;
+      top: 40%;
+      width: 58%;
+      color: #334155;
+      font-size: clamp(18px, 1.6vw, 28px);
+      line-height: 1.55;
+      margin: 0;
+      padding-left: 1.2em;
+    }
+
+    .nav {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .nav button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    @media (max-width: 720px) {
+      .deck { padding: 16px; gap: 16px; }
+      .slide { width: calc(100vw - 32px); border-radius: 18px; }
+      .nav { right: 12px; bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Presentation deck">
+    <section class="slide" data-slide-id="cover">
+      <div class="eyebrow">PPT STYLE HTML</div>
+      <h1 class="title">A deployable presentation page</h1>
+      <p class="subtitle">Replace this template with the user's topic, audience, visual direction, and page-turning mode.</p>
+      <div class="orb" aria-hidden="true"></div>
+    </section>
+
+    <section class="slide" data-slide-id="structure">
+      <div class="panel" aria-hidden="true"></div>
+      <h2 class="panel-title">Editable PPTX export</h2>
+      <ul class="points">
+        <li>HTML stays self-contained and deployable.</li>
+        <li>The embedded deck spec drives PPTX generation.</li>
+        <li>PowerPoint output uses native editable objects.</li>
+      </ul>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="Slide controls">
+    <button type="button" data-prev>Prev</button>
+    <button type="button" data-next>Next</button>
+  </nav>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      let index = 0;
+      const go = (next) => {
+        index = Math.max(0, Math.min(slides.length - 1, next));
+        slides[index].scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+      document.querySelector("[data-prev]").addEventListener("click", () => go(index - 1));
+      document.querySelector("[data-next]").addEventListener("click", () => go(index + 1));
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "PageDown") go(index + 1);
+        if (event.key === "ArrowLeft" || event.key === "PageUp") go(index - 1);
+      });
+    })();
+  </script>
+
+  <script type="application/json" id="deck-spec">
+{
+  "title": "PPT Style HTML Deck",
+  "layout": "LAYOUT_16x9",
+  "lang": "zh-CN",
+  "slides": [
+    {
+      "id": "cover",
+      "background": { "color": "F8FAFC" },
+      "elements": [
+        { "type": "text", "text": "PPT STYLE HTML", "x": 8, "y": 12, "w": 36, "h": 6, "fontSize": 12, "bold": true, "color": "F97316", "fontFace": "Trebuchet MS" },
+        { "type": "text", "text": "A deployable presentation page", "x": 8, "y": 20, "w": 60, "h": 24, "fontSize": 38, "bold": true, "color": "111827", "fontFace": "Trebuchet MS" },
+        { "type": "text", "text": "Replace this template with the user's topic, audience, visual direction, and page-turning mode.", "x": 8, "y": 55, "w": 44, "h": 16, "fontSize": 18, "color": "64748B", "fontFace": "Trebuchet MS" },
+        { "type": "shape", "shape": "ellipse", "x": 68, "y": 18, "w": 22, "h": 39, "fill": "14B8A6", "line": false }
+      ]
+    },
+    {
+      "id": "structure",
+      "background": { "color": "F8FAFC" },
+      "elements": [
+        { "type": "shape", "shape": "roundRect", "x": 8, "y": 18, "w": 84, "h": 64, "fill": "FFFFFF", "lineColor": "FFFFFF", "shadow": { "color": "000000", "opacity": 0.16, "blur": 8, "offset": 2, "angle": 45 } },
+        { "type": "text", "text": "Editable PPTX export", "x": 12, "y": 26, "w": 54, "h": 10, "fontSize": 28, "bold": true, "color": "111827", "fontFace": "Trebuchet MS" },
+        { "type": "text", "x": 12, "y": 40, "w": 58, "h": 28, "fontSize": 17, "color": "334155", "fontFace": "Trebuchet MS", "bullets": ["HTML stays self-contained and deployable.", "The embedded deck spec drives PPTX generation.", "PowerPoint output uses native editable objects."] }
+      ]
+    }
+  ]
+}
+  </script>
+</body>
+</html>

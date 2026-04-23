@@ -1,0 +1,12 @@
+{
+  "name": "ppt-style-html-deck",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-contained PPT-style HTML deck with editable PPTX export tooling.",
+  "scripts": {
+    "export:pptx": "node tools/html_to_editable_pptx.js index.html deck.pptx"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

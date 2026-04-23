@@ -1,0 +1,10 @@
+node_modules/
+*.tmp
+*.bak
+*.log
+*_tmp*
+_tmp*
+
+# Local scratch folders in this workspace that are unrelated to this skill repo.
+cpp/
+python/
